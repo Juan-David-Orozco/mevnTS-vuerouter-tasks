@@ -9,3 +9,15 @@ export const createTask = async (task: Task) => {
 export const getTasks = async (): Promise<AxiosResponse> => {
   return await axios.get('/tasks')
 }
+
+export const getTask = async (id: string) => {
+  return await axios.get(`/tasks/${id}`)
+}
+
+export const updateTask = async (id: string, task: Task) => {
+  return await axios.put(`/tasks/${id}`, task)
+}
+
+export const deleteTask = async (id: string) => {
+  return await axios.delete(`/tasks/${id}`)
+}

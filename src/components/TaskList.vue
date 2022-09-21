@@ -1,7 +1,12 @@
 <template>
   <h1>Task List</h1>
   <ul>
-    <li v-for="(task, index) in tasks" :key="index">
+    <li
+      style="border: 1px solid"
+      v-for="(task, index) in tasks"
+      :key="index"
+      @click="this.$router.push(`/tasks/${task._id}`)"
+    >
       {{task.title}}
     </li>
   </ul>

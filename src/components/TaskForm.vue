@@ -29,9 +29,9 @@ export default defineComponent({
   },
   methods: {
     saveTask: async function() {
-      console.log(this.task)
       const newTask = await createTask(this.task)
       console.log(newTask)
+      this.$router.push({ name: "tasks"} ); //redirecciona a la ruta /tasks (TaskList)
     }
   }
 })
