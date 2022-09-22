@@ -1,17 +1,27 @@
 <template>
-  <h1>Task Detail</h1>
-  <form @submit.prevent="handleUpdate(currentTask._id)">
-    <input
-      v-model="currentTask.title"
-      type="text"
-    />
-    <textarea
-      v-model="currentTask.description"
-      rows="3"
-    ></textarea>
-    <button>Update</button>
-  </form>
-  <button @click="handleDelete(currentTask._id)">Delete</button>
+  <div class="col-md-8 offset-md-2">
+    <div class="row">
+      <div class="col-md-9">
+        <h1 class="text-center my-2">Task Detail</h1>
+      </div>
+      <div class="col-md-3 m-auto text-center">
+        <button class="btn btn-danger btn-sm m-1" @click="handleDelete()">Delete</button>
+      </div>
+    </div>
+    <form @submit.prevent="handleUpdate(currentTask._id)" class="card card-body">
+      <input
+        class="form-control m-1"
+        v-model="currentTask.title"
+        type="text"
+      />
+      <textarea
+        class="form-control m-1"
+        v-model="currentTask.description"
+        rows="3"
+      ></textarea>
+      <button class="btn btn-info m-1 mx-auto">Update</button>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -30,19 +40,19 @@ export default defineComponent({
     async loadTask(id: string) {
       const res = await getTask(id)
       this.currentTask = res.data.data
-      console.log(res.data.data)
-      console.log(this.currentTask)
+      //console.log(res.data.data)
+      //console.log(this.currentTask)
     },
     async handleUpdate(id: string) {
       const updatedTask = await updateTask(id, this.currentTask)
       console.log(updatedTask)
       this.$router.push({ name: "tasks"} ); //redirecciona a la ruta /tasks (TaskList)
     },
-    async handleDelete(id: string) {
-      //const deletedTask = await deleteTask(id)
-      //console.log(deletedTask)
-      await deleteTask(id)
-      this.$router.push({ name: "tasks"} );
+    async handleDelete() {
+      if(typeof this.$route.params.id === "string"){
+        await deleteTask(this.$route.params.id)
+        this.$router.push({ name: "tasks"} );
+      }
     }
   },
   mounted() { // Cuando se monte el componente se carga lo que tiene en la URL (params)
