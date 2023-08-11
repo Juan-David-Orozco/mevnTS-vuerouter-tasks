@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-8 offset-md-2">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-sm-9">
         <h1 class="text-center my-2">Task Detail</h1>
       </div>
-      <div class="col-md-3 m-auto text-center">
+      <div class="col-sm-3 m-auto text-center">
         <button class="btn btn-danger btn-sm m-1" @click="handleDelete()">Delete</button>
       </div>
     </div>
@@ -40,8 +40,8 @@ export default defineComponent({
     async loadTask(id: string) {
       const res = await getTask(id)
       this.currentTask = res.data.data
-      //console.log(res.data.data)
-      //console.log(this.currentTask)
+      console.log(res)
+      console.log(this.currentTask)
     },
     async handleUpdate(id: string) {
       const updatedTask = await updateTask(id, this.currentTask)

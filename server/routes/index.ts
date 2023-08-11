@@ -4,12 +4,16 @@ import Task from '../models/Task'
 const router = Router()
 
 router.get('/tasks', async (req, res) => {
-  const tasks = await Task.find()
-  if(!tasks) return res.status(400).json({message: "Tasks not found"})
-  return res.status(200).json({
-    message: "Get all tasks",
-    data: tasks
-  })
+  try {
+    const tasks = await Task.find()
+    if(!tasks) return res.status(400).json({message: "Tasks not found"})
+    return res.status(200).json({
+      message: "Get all tasks",
+      data: tasks
+    })
+  } catch (error) {
+    return res.status(500).json({message: error})
+  }
 })
 
 router.get('/tasks/:id', async (req, res) => {
